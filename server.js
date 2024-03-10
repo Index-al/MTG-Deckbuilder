@@ -9,6 +9,7 @@ const helmet = require("helmet"); // Helmet for HTTP security headers
 const cors = require("cors"); // CORS middleware
 const rateLimit = require("express-rate-limit");
 const packRoutes = require("./controllers/api/packRoutes")
+const collectionRoutes = require("./controllers/api/collectionRoutes")
 
 const sequelize = require("./config/connection");
 const SequelizeStore = require("connect-session-sequelize")(session.Store);
@@ -45,6 +46,7 @@ app.use(express.static(path.join(__dirname, "public")));
 
 app.use(express.static('public'));
 app.use('/', packRoutes);
+app.use('/', collectionRoutes);
 
 
 // Helmet middleware for setting various HTTP headers for security
@@ -56,8 +58,8 @@ const limiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
   max: 100 // limit each IP to 100 requests per windowMs
 });
-app.use(limiter);
 
+app.use(limiter);
 app.use(routes);
 
 sequelize.sync({ force: false }).then(() => {

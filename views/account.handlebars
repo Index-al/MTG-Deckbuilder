@@ -1,7 +1,15 @@
 <body>
   <div class="columns">
+
     <div class="column is-4 is-offset-4">
       <div class="box has-text-centered columns is-flex-direction-column">
+
+        <a>
+          <button class ="button box is-warning" id="delete-collection">
+            Clear Collection
+          </button>
+        </a>
+
         <a href="/reset-password"><button class="button box is-info">Update
             Password</button></a>
 
@@ -10,8 +18,11 @@
             Delete Account
           </button>
         </a>
+
+
       </div>
     </div>
+
     <dialog id="account-dialog">
       <h3>Please enter your password to delete your account</h3>
       <input class="input-field" type="password" id="password-confirm" />

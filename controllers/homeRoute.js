@@ -24,6 +24,21 @@ const getRandomCard = async () => {
   }
 };
 
+const getRandomCommander = async () => {
+  try {
+    const response = await axios.get("https://api.scryfall.com/cards/random?q=is%3Acommander");
+    const card = response.data;
+    return {
+      name: card.name,
+      set: card.set_name,
+      imageUrl: card.image_uris ? card.image_uris.normal : "", // Fallback in case there's no image
+    };
+  } catch (error) {
+    console.error("Error fetching random card:", error);
+    return null;
+  }
+};
+
 router.get("/", async (req, res) => {
   try {
     // Fetch 3 random cards

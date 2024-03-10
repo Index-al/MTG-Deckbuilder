@@ -10,12 +10,34 @@ const deleteAccount = async (e) => {
   });
 
   if (response.ok) {
-    console.log("account deleted!");
+    console.log("Account deleted!");
 
     document.location.replace("/");
   } else {
     await Toast.fire("Failed to delete account!");
   }
+};
+
+const deleteCollection = async (e) => {
+  e.preventDefault();
+
+  const response = await fetch("/api/collection/delete", {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json"
+    }
+  });
+
+  if(response.ok) {
+    await Toast.fire({
+      icon: "success",
+      title: "Collection deleted!"
+    });
+    document.location.replace("/");
+  } else {
+    await Toast.fire("Failed to delete collection!");
+  }
+
 };
 
 const dialog = document.querySelector("#account-dialog");
@@ -31,3 +53,7 @@ closeDialogButton.addEventListener("click", () => {
 document
   .querySelector("#delete-account")
   .addEventListener("click", deleteAccount);
+
+document
+.querySelector("#delete-collection")
+.addEventListener("click", deleteCollection);
