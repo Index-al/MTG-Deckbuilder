@@ -20,5 +20,8 @@ function addCard() {
     });
   
     console.log(deckData); // Just for demonstration, you would typically send this data to a server for processing or save it locally
-  });
+    
+    // Save deckData in local storage
+    localStorage.setItem("deckData", JSON.stringify(deckData));
+});
   
