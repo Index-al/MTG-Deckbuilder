@@ -17,6 +17,25 @@ router.post("/", withAuth, async (req, res) => {
   }
 });
 
+router.put("/update", withAuth, async (req, res) => {
+  try {
+    const updatedDeck = await Deck.update(
+      {
+        name: req.body.name,
+      },
+      {
+        where: {
+          id: req.body.id,
+        },
+      }
+    );
+
+    res.status(200).json(updatedDeck);
+  } catch (err) {
+    res.status(400).json(err);
+  }
+});
+
 router.delete("/delete", withAuth, async (req, res) => {
   try {
     const removedDeck = await Deck.destroy({

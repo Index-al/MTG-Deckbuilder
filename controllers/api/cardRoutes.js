@@ -19,6 +19,25 @@ router.post("/", withAuth, async (req, res) => {
   }
 });
 
+router.put("/update", withAuth, async (req, res) => {
+  try {
+    const updatedCard = await Card.update(
+      {
+        deck_id: req.body.deck_id,
+      },
+      {
+        where: {
+          key_id: req.body.key_id,
+        },
+      }
+    );
+
+    res.status(200).json(updatedCard);
+  } catch (err) {
+    res.status(400).json(err);
+  }
+});
+
 router.delete("/update", withAuth, async (req, res) => {
   try {
     const removedCard = await Card.destroy({
