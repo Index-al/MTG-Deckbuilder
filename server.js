@@ -8,6 +8,7 @@ const helpers = require("./utils/helpers");
 const helmet = require("helmet"); // Helmet for HTTP security headers
 const cors = require("cors"); // CORS middleware
 const rateLimit = require("express-rate-limit");
+const packRoutes = require("./controllers/api/packRoutes")
 
 const sequelize = require("./config/connection");
 const SequelizeStore = require("connect-session-sequelize")(session.Store);
@@ -41,6 +42,10 @@ app.set("view engine", "handlebars");
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, "public")));
+
+app.use(express.static('public'));
+app.use('/', packRoutes);
+
 
 // Helmet middleware for setting various HTTP headers for security
 //app.use(helmet());

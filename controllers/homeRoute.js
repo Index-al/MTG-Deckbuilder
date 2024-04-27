@@ -108,6 +108,16 @@ router.get("/deck-builder", withAuth, async (req, res) => {
   }
 });
 
+router.get("/open-packs", async (req, res) => {
+  let logged_in = false;
+  if (req.session.logged_in) {
+    logged_in = true;
+  }
+  res.render("open-packs", {
+    logged_in,
+  });
+});
+
 router.get("/collection", withAuth, async (req, res) => {
   try {
     // Find the logged in user based on the session ID

@@ -1,11 +1,29 @@
 <html lang="en">
 
   <head>
+    {{!-- Basic Head Info --}}
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>SPELLSMITH: MTG DECKBUILDER</title>
+    <title>Spellsmith - Your Deck Building Companion</title>
+    <meta name="description" content="Spellsmith helps you build, manage, and visualize Magic: The Gathering decks with ease.">
     <link rel="icon" href="/assets/favicon.ico" type="image/x-icon" />
     <link rel="shortcut icon" href="/assets/favicon.ico" type="image/x-icon" />
+
+    <!-- Open Graph / Facebook Meta Tags -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://spell-smith.com/">
+    <meta property="og:title" content="Spellsmith - Your Deck Building Companion">
+    <meta property="og:description" content="Spellsmith helps you build, manage, and visualize Magic: The Gathering decks with ease.">
+    <meta property="og:image" content="https://spell-smith.com/assets/SpellSmith.png">
+
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="https://spell-smith.com/">
+    <meta name="twitter:title" content="Spellsmith - Your Deck Building Companion">
+    <meta name="twitter:description" content="Spellsmith helps you build, manage, and visualize Magic: The Gathering decks with ease.">
+    <meta name="twitter:image" content="https://spell-smith.com/assets/SpellSmith.png">
+
+    {{!-- Stylesheet stuff --}}
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css"
@@ -17,6 +35,7 @@
     <link rel="stylesheet" href="/css/style.css" />
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="/js/sweet-alert.js"></script>
+
   </head>
 
   <body>
@@ -66,14 +85,25 @@
             {{/unless}}
           </div>
         </div>
+
+        {{!-- Navigation menu --}}
+
         <div class="columns nav-menu">
           <div class="column has-text-right nav-buttons">
             <nav class="columns">
-              {{#if logged_in}}
-                <div class="column is-offset-6">
 
-                  <a href="/collection" class="nav-item has-text-white">My
-                    Collection</a>
+              {{#if logged_in}}
+                <div class = "column is-offset-6">
+                  <a href="/deck-builder" class="nav-item has-text-white">
+                  Deckbuilder</a>
+                </div>
+                <div class = "column">
+                  <a href="/open-packs" class="nav-item has-text-white">
+                  Open Packs</a>
+                </div>
+                <div class="column">
+                  <a href="/collection" class="nav-item has-text-white">
+                  Collection</a>
                 </div>
                 <div class="column">
                   <a href="/account" class="nav-item has-text-white">Account</a>
@@ -87,8 +117,12 @@
                 </div>
 
               {{else}}
+                <div class = "column is-offset-10">
+                  <a href="/open-packs" class="nav-item has-text-white">
+                  Open Packs</a>
+                </div>
                 {{! Show Login button }}
-                <div class="column is-offset-10">
+                <div class="column">
                   <div class="field has-addons nav-item">
                     <div class="control">
                       <a href="/login" class="button" id="login">Login</a>

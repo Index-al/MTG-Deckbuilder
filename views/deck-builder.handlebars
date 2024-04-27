@@ -1,53 +1,17 @@
-{{!-- <div class="nothing">
-  <h1>Nothing here yet! (deck builder)</h1>
-</div> --}}
-<!-- Deck Builder Template -->
-<div class="deck-builder">
-    <h2 class="title is-3">Deck Builder</h2>
-    <form id="deckForm">
-        <div class="field is-horizontal">
-            <div class="field-label is-normal">
-                <label for="cardName" class="label">Card Name:</label>
-            </div>
-            <div class="field-body">
-                <div class="field">
-                    <p class="control is-expanded">
-                        <input type="text" id="cardName" name="cardName" class="input">
-                    </p>
-                </div>
-            </div>
-        </div>
-        <div class="field is-horizontal">
-            <div class="field-label is-normal">
-                <label for="quantity" class="label">Quantity:</label>
-            </div>
-            <div class="field-body">
-                <div class="field">
-                    <p class="control is-expanded">
-                        <input type="number" id="quantity" name="quantity" class="input">
-                    </p>
-                </div>
-            </div>
-        </div>
-        <div class="field is-horizontal">
-            <div class="field-label"></div>
-            <div class="field-body">
-                <div class="field">
-                   <p class="control">
-    <button type="submit" class="button is-primary" style="background-color: #361e36; color: white;">
-        Add Card
-    </button>
-</p>
+<main>
+  <section class="deck-builder">
+    <div class="deck-search-bar">
+      <input type="text" id="deck-search-input" placeholder="Search for cards to add...">
+      <button id="deck-search-button">Add Card</button>
+    </div>
 
-                </div>
-            </div>
-        </div>
-    </form>
-    <h3 class="title is-3">Deck List</h3>
-    <ul id="deckList" class="content">
-        {{#each deck}}
-        <li>{{this.cardName}} ({{this.quantity}})</li>
-        {{/each}}
-    </ul>
-</div>
-<script src="./js/deck-builder.js"></script>
+    <div class="deck-list">
+      <h2>Your Deck</h2>
+      <ul id="deck-card-list">
+        <!-- Card names will be added here dynamically -->
+      </ul>
+    </div>
+  </section>
+</main>
+
+<script src="/js/deckBuilder.js"></script>
