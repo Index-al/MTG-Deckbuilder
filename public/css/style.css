@@ -61,6 +61,9 @@ footer {
 }
 .dropdown {
   z-index: 10;
+  display:absolute;
+  top: 0;
+  left: 0;
 }
 
 #dropdown-btn {
@@ -487,11 +490,23 @@ main {
     display: none;
 } */
 
+.card-search-container {
+  width: 90vw;
+}
+
+.box {
+  padding: 0;
+  border-radius: 11px;
+  margin-bottom: 10px !important;
+}
+
 .card-container {
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-top: 2rem;
+  max-width: 250px;
+  margin-left: 8px;
+  position: relative;
 }
 
 .card-container:hover .flip-card {
@@ -513,6 +528,7 @@ main {
   width: 300px;
   height: auto;
   margin-right: 2rem;
+  border-radius: 10px;
 }
 
 .card-details {
@@ -564,8 +580,16 @@ main {
   right: 20px;
 }
 
+.card-container:hover .add-to-collection-search {
+  opacity: 0.7;
+  transition: opacity 0.2s ease-in-out;
+  z-index: 100;
+  top: 60px;
+  right: 20px;
+}
+
 .card-container img {
-  pointer-events: none; /* Prevent image from being clickable */
+  pointer-events: none !important; /* Prevent image from being clickable */
 }
 
 .card-image:hover .add-to-clipboard {
@@ -576,7 +600,7 @@ main {
   right: 10px;
 }
 
-.card-image:hover .flip-card {
+.card-image:hover .add-to-collection {
   opacity: 0.7;
   transition: opacity 0.2s ease-in-out;
   z-index: 100;
@@ -584,10 +608,18 @@ main {
   right: 10px;
 }
 
+.card-image:hover .flip-card {
+  opacity: 0.7;
+  transition: opacity 0.2s ease-in-out;
+  z-index: 100;
+  top: 20px;
+  right: 10px;
+}
+
 .flip-card {
   position: absolute;
-  top: 60px;
-  right: 10px;
+  top: 20px;
+  left: 10px;
   opacity: 0;
   pointer-events: all; /* Ensure the button itself can be clicked */
   z-index: 50;
@@ -648,7 +680,86 @@ main {
   padding: 0;
 }
 
+/* ADD TO COLLECTION BUTTON */
+.add-to-collection {
+  position: absolute;
+  top: 60px;
+  right: 10px;
+  opacity: 0;
+  pointer-events: all; /* Ensure the button itself can be clicked */
+  z-index: 50;
+  width: 36px;
+  height: 36px;
+  border-radius: 9px;
+  background-color: #191919;
+  border: none;
+  font-size: 24px;
+  line-height: 36px; /* Center the text vertically */
+  text-align: center; /* Center the text horizontally */
+  transition: opacity 0.2s ease-in-out;
+  cursor: copy;
+  color: white;
+  padding: 0;
+}
+
+.add-to-collection-search {
+	background-color: #4caf50;
+	border: none;
+	color: white;
+	padding: 15px 32px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 16px;
+	cursor: pointer;
+}
+
+.add-to-collection-search:active {
+	background-color: #3e8e41;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+	transform: translateY(2px);
+}
+
+.add-to-collection:active {
+	background-color: #3e8e41;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+	transform: translateY(2px);
+}
+
+.add-to-collection-search {
+  position: absolute;
+  top: 60px;
+  right: 20px;
+  opacity: 0;
+  pointer-events: all; /* Ensure the button itself can be clicked */
+  z-index: 50;
+  width: 36px;
+  height: 36px;
+  border-radius: 9px;
+  background-color: #191919;
+  border: none;
+  font-size: 24px;
+  line-height: 36px; /* Center the text vertically */
+  text-align: center; /* Center the text horizontally */
+  transition: opacity 0.2s ease-in-out;
+  cursor: copy;
+  color: white;
+  padding: 0;
+}
+
 .add-to-clipboard:hover {
+  opacity: 1;
+}
+
+.add-to-collection:hover {
+  opacity: 1;
+}
+
+.add-to-collection-search:hover {
+  opacity: 1;
+}
+
+.add-to-clipboard-search:hover {
   opacity: 1;
 }
 
@@ -667,6 +778,7 @@ main {
 
 .results-exp {
   margin: 12px;
+  margin-bottom: 25px;
 }
 
 /* Card pack opening */
@@ -678,7 +790,7 @@ main {
 .pack-display-container {
 	display: flex;
 	flex-wrap: wrap;
-	width: 80vw;
+	width: 90vw;
 }
 
 .pack-card {

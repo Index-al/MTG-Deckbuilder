@@ -57,6 +57,14 @@
                   class="add-to-clipboard"
                   data-card-name="{{this.name}}"
                   >+</button>
+
+                  {{!-- Disabled until ".this" bug is fixed --}}
+                  {{!-- Adding to collection from homepage breaks users' collection entirely requiring manual reset --}}
+                  {{!-- {{#if ../logged_in}}
+                    <button class="add-to-collection" card-id="{{this.id}}" card-name="{{this.name}}"
+                    >📁</button>
+                  {{/if}} --}}
+
                 </figure>
               </div>
               <div class="card-content">

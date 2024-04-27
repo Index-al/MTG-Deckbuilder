@@ -138,7 +138,10 @@ router.get("/collection", withAuth, async (req, res) => {
     for (let i = 0; i < dataFiltered.length; i++) {
       const apiUrl = `https://api.scryfall.com/cards/${dataFiltered[i].dataValues.id}`;
       setTimeoutAsync(50);
+      
       const response = await axios.get(apiUrl);
+
+
       const cardData = response.data;
       cardData.key_id = dataFiltered[i].key_id;
       scryfallObjData.push(cardData);
@@ -151,12 +154,14 @@ router.get("/collection", withAuth, async (req, res) => {
           scryfallObjData[i].card_faces[0].image_uris;
       }
     }
+    console.log("Attempting to render collection..");
     res.render("collection", {
       scryfallObjData,
       logged_in: true,
     });
   } catch (err) {
     res.status(500).json(err);
+    console.log("Error fetching collection data:", err);
   }
 });
 
@@ -203,10 +208,16 @@ router.get("/search-result/:searchText", async (req, res) => {
     });
   } catch (error) {
     console.log("error: ", error);
+
+    let logged_in = false;
+    if (req.session.logged_in) {
+      logged_in = true;
+    }
+
     res.status(404).render("no-results", {
+			error: error,
       logged_in,
-      error,
-    });
+		});
   }
 });
 
@@ -272,6 +283,7 @@ router.get("/account", withAuth, async (req, res) => {
     res.status(500).json(err);
   }
 });
+
 router.get("/reset-password", withAuth, async (req, res) => {
   try {
     // Find the logged in user based on the session ID

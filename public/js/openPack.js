@@ -17,7 +17,7 @@ function fetchSetsAndPopulateSelector() {
             data.data.forEach((set) => {
                 // Add additional condition to check card_count
                 if (
-                    set.card_count > 60 &&
+                    set.card_count > 285 &&
                     !set.name.includes("Tokens") &&
                     !set.name.includes("Art Series") &&
                     !set.name.endsWith("Commander") &&

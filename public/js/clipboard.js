@@ -121,11 +121,12 @@ function updateAddToClipboardButtons() {
       const cardName = button.getAttribute('data-card-name');
       if (clipboard.includes(cardName)) {
         // Card is in the clipboard, change symbol and make button always visible
-        button.textContent = '✓';
+        button.textContent = '✔️';
         button.style.opacity = '0.7';
+        button.style.backgroundColor = '#191919';
       } else {
-        // Card is not in the clipboard, use '+' symbol
-        button.textContent = '+';
+        // Card is not in the clipboard, use '📋' symbol
+        button.textContent = '📋';
         button.style.opacity = ''; // Reset opacity
       }
     });
@@ -134,11 +135,12 @@ function updateAddToClipboardButtons() {
         const cardName = button.getAttribute('data-card-name');
         if (clipboard.includes(cardName)) {
           // Card is in the clipboard, change symbol and make button always visible
-          button.textContent = '✓';
+          button.textContent = '✔️';
           button.style.opacity = '0.7';
+          button.style.backgroundColor = '#191919';
         } else {
-          // Card is not in the clipboard, use '+' symbol
-          button.textContent = '+';
+          // Card is not in the clipboard, use '📋' symbol
+          button.textContent = '📋';
           button.style.opacity = ''; // Reset opacity
         }
       });

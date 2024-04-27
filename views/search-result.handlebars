@@ -3,57 +3,39 @@
     <b><big>Found {{cardData.length}} results.</big></b> 
   </div>
 
-  <div class="results-exp">Click on a card to view more details or click the +
-    button to add it to your clipboard.</div>
+  <div class="results-exp">Click on a card to view more details or click the 📋
+    button to add it to your clipboard
+  {{#if logged_in}}
+    <span> or the 📁 button to add it to your collection.</span>
+  {{/if}}
+</div>
 
-  <div class="columns is-flex-wrap-wrap">
+  
+
+  <div class="columns is-flex-wrap-wrap card-search-container">
     {{#each cardData as |card|}}
-      <div class="column is-offset-1-mobile is-10-mobile is-3 card-container box has-text-centered">
-        <a href="/search/{{sanitizeCardName card.name}}" class="box" style="box-shadow:0px">
-          {{#if card.card_faces}}
-            <img src="{{card.card_faces.[0].image_uris.normal}}" alt="{{card.name}}" />
-            <img src="{{card.card_faces.[1].image_uris.normal}}" alt="{{card.name}}" class="card-face back" style="display: none;" />
-          {{else}}
-            <img src="{{card.image_uris.normal}}" />
-          {{/if}}
-
-          {{! Add to clipboard button }}
-          <button
-            class="add-to-clipboard-search"
-            data-card-name="{{card.name}}"
-          >+</button>
-
-        </a>
-        {{#if ../logged_in}}
-          <div class="dropdown">
-            <div class="dropdown-trigger">
-              <button
-                class="button"
-                aria-haspopup="true"
-                aria-controls="dropdown-menu"
-                onclick="this.parentNode.parentNode.classList.toggle('is-active')"
-              >
-                <span>Add to:</span>
-                <span class="icon is-small">
-                  <i class="fas fa-angle-down" aria-hidden="true"></i>
-                </span>
-              </button>
-            </div>
-            <div class="dropdown-menu" id="dropdown-menu" role="menu">
-              <div class="dropdown-content has-text-left">
-                <button class="button is-ghost dropdown-item collection" card-id="{{card.id}}" card-name="{{card.name}}">
-                  Collection
-                </button>
-                {{#each ../decks as |deck|}}
-                  <button class="button is-ghost dropdown-item deck">
-                    Deck: {{deck.name}}
-                  </button>
-                {{/each}}
-              </div>
-            </div>
-          </div>
+      
+      <a href="/search/{{sanitizeCardName card.name}}" class="card-container box">
+      
+        {{#if card.card_faces}}
+          <img src="{{card.card_faces.[0].image_uris.normal}}" alt="{{card.name}}" />
+          <img src="{{card.card_faces.[1].image_uris.normal}}" alt="{{card.name}}" class="card-face back" style="display: none;" />
+        {{else}}
+          <img src="{{card.image_uris.normal}}" />
         {{/if}}
-      </div>
+
+        {{! Add to clipboard button }}
+        <button
+          class="add-to-clipboard-search"
+          data-card-name="{{card.name}}"
+        >📋</button>
+
+        {{#if ../logged_in}}
+          <button class="add-to-collection-search" card-id="{{card.id}}" card-name="{{card.name}}"
+          >📁</button>
+        {{/if}}
+      </a>
     {{/each}}
   </div>
+  
 </body>

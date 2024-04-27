@@ -53,38 +53,8 @@
 					{{/if}}
 
 					{{#if logged_in}}
-						<div class="dropdown">
-							<div class="dropdown-trigger">
-								<button
-									class="button"
-									aria-haspopup="true"
-									aria-controls="dropdown-menu"
-									onclick="this.parentNode.parentNode.classList.toggle('is-active')"
-								>
-									<span>Add to:</span>
-									<span class="icon is-small">
-										<i class="fas fa-angle-down" aria-hidden="true"></i>
-									</span>
-								</button>
-							</div>
-							<div class="dropdown-menu" id="dropdown-menu" role="menu">
-								<div class="dropdown-content has-text-left">
-									<button
-										class="button is-ghost dropdown-item collection"
-										card-id="{{card.id}}"
-										card-name="{{card.name}}"
-									>
-										Collection
-									</button>
-									{{#each decks as |deck|}}
-										<button class="button is-ghost dropdown-item deck">
-											Deck:
-											{{deck.name}}
-										</button>
-									{{/each}}
-								</div>
-							</div>
-						</div>
+					<button class="add-to-collection" card-id="{{card.id}}" card-name="{{card.name}}"
+					>📁</button>
 					{{/if}}
 
 					<button
@@ -95,6 +65,8 @@
 				</div>
 
 			</div>
+</div>
+
 
 			<div class="card-details">
 				<h1 class="card-name">{{card.name}}</h1>
@@ -118,7 +90,7 @@
 			</div>
 
 		</div>
-
+		<script src="/js/card.js"></script>
 	</body>
 
 </html>
