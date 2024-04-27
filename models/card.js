@@ -24,7 +24,7 @@ Card.init(
       allowNull: true,
       reference: {
         model: "collection",
-        key: "id"
+        key: "id",
       },
     },
     deck_id: {
@@ -32,9 +32,9 @@ Card.init(
       allowNull: true,
       reference: {
         model: "deck",
-        key: "id"
-      }
-    }
+        key: "id",
+      },
+    },
   },
   {
     sequelize,

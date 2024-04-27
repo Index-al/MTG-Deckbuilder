@@ -7,7 +7,6 @@ const Collection = require("./collection");
 User.hasOne(Collection, {
   foreignKey: "user_id",
 });
-
 Collection.belongsTo(User, {
   foreignKey: "user_id",
   onDelete: "CASCADE",
@@ -16,7 +15,6 @@ Collection.belongsTo(User, {
 User.hasMany(Deck, {
   foreignKey: "user_id",
 });
-
 Deck.belongsTo(User, {
   foreignKey: "user_id",
   onDelete: "CASCADE",
@@ -25,7 +23,6 @@ Deck.belongsTo(User, {
 Collection.hasMany(Card, {
   foreignKey: "collection_id",
 });
-
 Card.belongsTo(Collection, {
   foreignKey: "collection_id",
   onDelete: "SET NULL",
@@ -35,7 +32,6 @@ Card.belongsTo(Collection, {
 Deck.hasMany(Card, {
   foreignKey: "deck_id",
 });
-
 Card.belongsTo(Deck, {
   foreignKey: "deck_id",
   onDelete: "SET NULL",
