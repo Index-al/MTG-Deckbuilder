@@ -23,7 +23,10 @@ Deck.init(
       type: DataTypes.STRING,
       allowNull: false,
     },
-
+    cardList: {
+      type: DataTypes.JSON,
+      allowNull: true,
+    },
     is_public: {
       type: DataTypes.BOOLEAN,
       allowNull: false,
@@ -38,4 +41,5 @@ Deck.init(
     modelName: "deck",
   }
 );
+
 module.exports = Deck;

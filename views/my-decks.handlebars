@@ -1,29 +1,20 @@
-<div class="columns">
-  <div class="column is-9">
-    <div class="columns is-flex-wrap-wrap">
-      {{#each decks as |deck|}}
-        <a href="/deck/{{deck.id}}" class="box">
-          <div class="column is-4">
-            {{deck.name}}
-            <button class="button remove-button" deck_id="{{deck.id}}">
-              Delete Deck
-            </button>
-          </div>
-        </a>
+<main>
+  <section class="my-decks">
+    <h1>Your Decks</h1>
+    <div class="deck-list">
+      {{#each decks}}
+        <div class="deck-item">
+          <h3>{{this.name}}</h3>
+          <button onclick="location.href='/deck-builder?deckId={{this.id}}'">Edit Deck</button>
+          <button class="remove-button" data-id="{{this.id}}">Delete Deck</button>
+        </div>
       {{/each}}
     </div>
-  </div>
-  <div class="column is-3">
-    <form class="form box create-deck">
-      <div>
-        <label for="new-deck">New Deck Name:</label>
-        <input class="input-field" type="text" id="new-deck" />
-      </div>
-      <div>
-        <button class="button" id="create-deck" type="submit">Create Deck</button>
-      </div>
+    <form class="create-deck">
+      <input type="text" id="new-deck" placeholder="New Deck Name">
+      <button type="submit">Create Deck</button>
     </form>
-  </div>
-  <script src="/js/create-deck.js"></script>
+  </section>
+</main>
 
-</div>
+<script src="/js/create-deck.js"></script>

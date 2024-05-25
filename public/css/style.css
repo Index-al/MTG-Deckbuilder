@@ -850,11 +850,17 @@ main {
 } */
 
 
+.deck-view {
+  display: flex;
+  flex-wrap: wrap;
+}
+
 .card-stack {
   position: relative;
   width: 200px; /* Adjust width as needed */
   height: 300px; /* Adjust height based on card size */
   overflow: hidden;
+  margin: 10px; /* Add margin for spacing */
 }
 
 .cardDeck {
@@ -867,17 +873,14 @@ main {
   padding: 20px;
 }
 
-
 .cardDeck:hover {
   z-index: 10; /* Ensure hovered card is on top */
   top: 100%; /* Push down to reveal full card */
 }
 
-
 .card-stack h3 {
   margin: 0 0 10px;
 }
-
 
 
 

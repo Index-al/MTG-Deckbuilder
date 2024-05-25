@@ -4,14 +4,17 @@ const deckData = [
   {
     user_id: 1,
     name: "mydeck",
+    cardList: [],
   },
   {
     user_id: 2,
     name: "mydeck",
+    cardList: [],
   },
   {
     user_id: 3,
     name: "mydeck",
+    cardList: [],
   },
 ];
 
