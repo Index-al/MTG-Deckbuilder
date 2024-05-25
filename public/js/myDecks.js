@@ -14,8 +14,15 @@ document.addEventListener('DOMContentLoaded', async () => {
         });
         if (response.ok) {
           await loadDecks();
+          Toast.fire({
+            icon: 'success',
+            title: 'Deck created successfully',
+          });
         } else {
-          alert('Failed to create deck');
+          Toast.fire({
+            icon: 'error',
+            title: 'Failed to create deck',
+          });
         }
       }
     });
@@ -39,20 +46,41 @@ document.addEventListener('DOMContentLoaded', async () => {
   
         deckElement.querySelector('.delete-deck-button').addEventListener('click', async function() {
           const deckId = this.getAttribute('data-id');
-          const response = await fetch('/api/decks/delete', {
-            method: 'DELETE',
-            headers: {
-              'Content-Type': 'application/json',
+          const deckName = deckElement.querySelector('h3').textContent;
+          Swal.fire({
+            title: 'Confirm Deletion',
+            text: `Type the deck name (${deckName}) to confirm deletion:`,
+            input: 'text',
+            inputValidator: (value) => {
+              if (value !== deckName) {
+                return 'Deck name does not match';
+              }
             },
-            body: JSON.stringify({ id: deckId }),
+            showCancelButton: true,
+          }).then(async (result) => {
+            if (result.isConfirmed) {
+              const response = await fetch('/api/decks/delete', {
+                method: 'DELETE',
+                headers: {
+                  'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ id: deckId }),
+              });
+              if (response.ok) {
+                await loadDecks();
+                Toast.fire({
+                  icon: 'success',
+                  title: 'Deck deleted successfully',
+                });
+              } else {
+                Toast.fire({
+                  icon: 'error',
+                  title: 'Failed to delete deck',
+                });
+              }
+            }
           });
-          if (response.ok) {
-            await loadDecks();
-          } else {
-            alert('Failed to delete deck');
-          }
         });
       });
     }
   }
-  

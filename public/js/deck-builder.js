@@ -7,6 +7,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   if (deckId) {
     // Load the deck
     await loadDeck(deckId);
+    toggleDeckControls(false);
   }
 });
 
@@ -28,6 +29,7 @@ document.getElementById('load-deck-button').addEventListener('click', async () =
   const deckId = document.getElementById('deck-selector').value;
   if (deckId) {
     await loadDeck(deckId);
+    toggleDeckControls(false);
   }
 });
 
@@ -45,26 +47,42 @@ document.getElementById('new-deck-form').addEventListener('submit', async functi
     if (response.ok) {
       document.location.reload();
     } else {
-      alert('Failed to create deck');
+      Swal.fire('Error', 'Failed to create deck', 'error');
     }
   }
 });
 
 document.getElementById('delete-deck-button').addEventListener('click', async () => {
-  const deckId = document.getElementById('deck-selector').value;
+  const urlParams = new URLSearchParams(window.location.search);
+  const deckId = urlParams.get('deckId');
   if (deckId) {
-    const response = await fetch('/api/decks/delete', {
-      method: 'DELETE',
-      headers: {
-        'Content-Type': 'application/json',
+    const deckName = document.getElementById('deck-name-display').textContent;
+    Swal.fire({
+      title: 'Confirm Deletion',
+      text: `Type the deck name (${deckName}) to confirm deletion:`,
+      input: 'text',
+      inputValidator: (value) => {
+        if (value !== deckName) {
+          return 'Deck name does not match';
+        }
       },
-      body: JSON.stringify({ id: deckId }),
+      showCancelButton: true,
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        const response = await fetch('/api/decks/delete', {
+          method: 'DELETE',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ id: deckId }),
+        });
+        if (response.ok) {
+          document.location.reload();
+        } else {
+          Swal.fire('Error', 'Failed to delete deck', 'error');
+        }
+      }
     });
-    if (response.ok) {
-      document.location.reload();
-    } else {
-      alert('Failed to delete deck');
-    }
   }
 });
 
@@ -78,6 +96,17 @@ document.getElementById('card-search-form').addEventListener('submit', async fun
 
     if (response.ok) {
       const cardData = await response.json();
+
+      // Check if the card is already in the deck
+      const existingCard = document.querySelector(`.cardDeck img[alt="${cardData.name}"]`);
+      if (existingCard) {
+        Toast.fire({
+          icon: 'error',
+          title: 'Card is already in the deck',
+        });
+        return;
+      }
+
       const cardTypes = cardData.type_line.toLowerCase().split(' ');
 
       let primaryType = cardTypes.includes('creature') ? 'creature' :
@@ -113,7 +142,7 @@ document.getElementById('card-search-form').addEventListener('submit', async fun
         }
       });
     } else {
-      alert('Invalid card name');
+      Swal.fire('Error', 'Invalid card name', 'error');
     }
   }
 });
@@ -140,16 +169,31 @@ document.getElementById('save-deck-button').addEventListener('click', async func
   });
 
   if (response.ok) {
-    alert('Deck saved successfully');
+    Toast.fire({
+      icon: 'success',
+      title: 'Deck saved successfully',
+    });
   } else {
-    alert('Failed to save deck');
+    Toast.fire({
+      icon: 'error',
+      title: 'Failed to save deck',
+    });
   }
 });
 
 async function loadDeck(deckId) {
+  // Update the URL to include the deckId
+  const url = new URL(window.location);
+  url.searchParams.set('deckId', deckId);
+  window.history.pushState({}, '', url);
+
   const response = await fetch(`/api/decks/${deckId}`);
   if (response.ok) {
     const deckData = await response.json();
+    
+    // Set deck name at the top
+    document.getElementById('deck-name-display').textContent = deckData.name;
+
     const deckView = document.getElementById('deck-view');
     deckView.innerHTML = ''; // Clear current deck view
     deckData.cardList.forEach(async cardName => {
@@ -192,5 +236,14 @@ async function loadDeck(deckId) {
         });
       }
     });
+  }
+}
+
+function toggleDeckControls(show) {
+  const deckControls = document.getElementById('deck-controls');
+  if (show) {
+    deckControls.style.display = 'block';
+  } else {
+    deckControls.style.display = 'none';
   }
 }

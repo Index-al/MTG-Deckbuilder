@@ -1,6 +1,11 @@
 <main>
   <section class="deck-builder">
-    <div class="deck-search-bar">
+    <h2 id="deck-name-display"></h2>
+    <div id="top-controls">
+      <button id="save-deck-button">Save Deck</button>
+      <button id="delete-deck-button">Delete Deck</button>
+    </div>
+    <div class="deck-search-bar" id="deck-controls">
       <form id="deck-selector-form">
         <select id="deck-selector">
           <option value="">Select a Deck</option>
@@ -27,9 +32,8 @@
         <!-- Card stacks will be dynamically added here -->
       </div>
     </div>
-    <button id="save-deck-button">Save Deck</button>
-    <button id="delete-deck-button">Delete Deck</button>
   </section>
 </main>
 
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="/js/deck-builder.js"></script>
