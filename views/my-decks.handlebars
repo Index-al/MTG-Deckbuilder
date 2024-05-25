@@ -1,20 +1,14 @@
 <main>
   <section class="my-decks">
-    <h1>Your Decks</h1>
-    <div class="deck-list">
-      {{#each decks}}
-        <div class="deck-item">
-          <h3>{{this.name}}</h3>
-          <button onclick="location.href='/deck-builder?deckId={{this.id}}'">Edit Deck</button>
-          <button class="remove-button" data-id="{{this.id}}">Delete Deck</button>
-        </div>
-      {{/each}}
+    <h2>Your Decks</h2>
+    <div id="deck-list">
+      <!-- Decks will be dynamically populated here -->
     </div>
-    <form class="create-deck">
-      <input type="text" id="new-deck" placeholder="New Deck Name">
-      <button type="submit">Create Deck</button>
+    <form id="new-deck-form">
+      <input type="text" id="new-deck-name" placeholder="New Deck Name">
+      <button type="submit">Create New Deck</button>
     </form>
   </section>
 </main>
 
-<script src="/js/create-deck.js"></script>
+<script src="/js/myDecks.js"></script>
