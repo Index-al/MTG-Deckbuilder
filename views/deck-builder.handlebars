@@ -1,7 +1,8 @@
 <main>
   <section class="deck-builder">
     <h2 id="deck-name-display"></h2>
-    <div id="top-controls">
+
+    <div id="top-controls" style="display: none;">
       <button id="save-deck-button">Save Deck</button>
       <button id="delete-deck-button">Delete Deck</button>
     </div>
@@ -19,14 +20,14 @@
       </form>
     </div>
 
-    <div class="deck-search-bar">
+    <div class="deck-search-bar" id="card-search-container" style="display: none;">
       <form id="card-search-form">
         <input type="text" id="deck-search-input" placeholder="Search for cards to add...">
         <button type="submit">Add Card</button>
       </form>
     </div>
 
-    <div class="deck-list">
+    <div class="deck-list" id="deck-list-container" style="display: none;">
       <h2>Your Deck</h2>
       <div id="deck-view">
         <!-- Card stacks will be dynamically added here -->

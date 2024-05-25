@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   if (deckId) {
     // Load the deck
     await loadDeck(deckId);
-    toggleDeckControls(false);
+    toggleDeckControls(true);
   }
 });
 
@@ -29,7 +29,7 @@ document.getElementById('load-deck-button').addEventListener('click', async () =
   const deckId = document.getElementById('deck-selector').value;
   if (deckId) {
     await loadDeck(deckId);
-    toggleDeckControls(false);
+    toggleDeckControls(true);
   }
 });
 
@@ -45,7 +45,9 @@ document.getElementById('new-deck-form').addEventListener('submit', async functi
       body: JSON.stringify({ name: deckName, cardList: [] }),
     });
     if (response.ok) {
-      document.location.reload();
+      const newDeck = await response.json();
+      await loadDeck(newDeck.id);
+      toggleDeckControls(true);
     } else {
       Swal.fire('Error', 'Failed to create deck', 'error');
     }
@@ -236,14 +238,24 @@ async function loadDeck(deckId) {
         });
       }
     });
+    toggleDeckControls(true);
   }
 }
 
 function toggleDeckControls(show) {
+  const topControls = document.getElementById('top-controls');
+  const cardSearchContainer = document.getElementById('card-search-container');
+  const deckListContainer = document.getElementById('deck-list-container');
   const deckControls = document.getElementById('deck-controls');
   if (show) {
-    deckControls.style.display = 'block';
+    topControls.style.display = 'block';
+    cardSearchContainer.style.display = 'block';
+    deckListContainer.style.display = 'block';
+    deckControls.style.display = 'none'; // Hide loading/creating options
   } else {
-    deckControls.style.display = 'none';
+    topControls.style.display = 'none';
+    cardSearchContainer.style.display = 'none';
+    deckListContainer.style.display = 'none';
+    deckControls.style.display = 'block'; // Show loading/creating options
   }
 }
