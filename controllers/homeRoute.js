@@ -39,6 +39,10 @@ const getRandomCommander = async () => {
   }
 };
 
+router.get('/game', (req, res) => {
+  res.render('random-commander', { title: 'Guess the Commander' });
+});
+
 router.get("/", async (req, res) => {
   try {
     // Fetch 3 random cards

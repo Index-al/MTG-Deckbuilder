@@ -1,17 +1,24 @@
-<main>
-  <section class="deck-builder">
-    <div class="deck-search-bar">
-      <input type="text" id="deck-search-input" placeholder="Search for cards to add...">
-      <button id="deck-search-button">Add Card</button>
-    </div>
+<div class="deck-container">
+  <p>Deck filter</p>
+  <select id="card-type-filter">
+  <option value="all">All</option>
+  <option value="creature">Creature</option>
+  <option value="instant">Instant</option>
+  <option value="sorcery">Sorcery</option>
+  <option value="planeswalker">Planeswalker</option>
+  <option value="artifact">Artifact</option>
+  <option value="enchantment">Enchantment</option>
+  <option value="land">Land</option>
+  <option value="unknown">Unknown</option>
+</select>
+  <form id="card-search-form">
+    <input type="text" id="card-search-input" placeholder="Search for cards...">
+    <button type="submit">Add Card</button>
+  </form>
+	<div class="deck-view" id="deck-view">
+		<!-- Cards will be dynamically added here -->
+	</div>
+</div>
 
-    <div class="deck-list">
-      <h2>Your Deck</h2>
-      <ul id="deck-card-list">
-        <!-- Card names will be added here dynamically -->
-      </ul>
-    </div>
-  </section>
-</main>
-
-<script src="/js/deckBuilder.js"></script>
+{{! Import JS file }}
+<script src="/js/deck-builder.js"></script>

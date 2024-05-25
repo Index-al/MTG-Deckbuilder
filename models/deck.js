@@ -27,7 +27,7 @@ Deck.init(
     is_public: {
       type: DataTypes.BOOLEAN,
       allowNull: false,
-      defaultValue: false,
+      defaultValue: true,
     },
   },
   {

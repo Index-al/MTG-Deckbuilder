@@ -10,6 +10,7 @@ const cors = require("cors"); // CORS middleware
 const rateLimit = require("express-rate-limit");
 const packRoutes = require("./controllers/api/packRoutes")
 const collectionRoutes = require("./controllers/api/collectionRoutes")
+const gameRoutes = require('./controllers/api/gameRoutes');
 
 const sequelize = require("./config/connection");
 const SequelizeStore = require("connect-session-sequelize")(session.Store);
@@ -47,7 +48,7 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use(express.static('public'));
 app.use('/', packRoutes);
 app.use('/', collectionRoutes);
-
+app.use('/game', gameRoutes);
 
 // Helmet middleware for setting various HTTP headers for security
 //app.use(helmet());
