@@ -1,11 +1,12 @@
 <main>
   <section class="deck-builder">
     <h2 id="deck-name-display"></h2>
-
-    <div id="import-export-controls"  style="display: none;">
+    
+    <div id="import-export-controls" style="display: none;">
       <button id="export-deck-button">Export Deck</button>
       <button id="import-deck-button">Import Deck</button>
-      <textarea id="import-deck-textarea" placeholder="Paste your deck list here..." style="display: none;"></textarea>
+      <textarea id="import-deck-textarea" placeholder="Paste your deck list here..." style="display: none; width: 100%; height: 200px;"></textarea>
+      <button id="submit-import-button" style="display: none;">Submit Import</button>
     </div>
 
     <div id="top-controls" style="display: none;">
@@ -33,14 +34,12 @@
       </form>
     </div>
 
-
     <div class="deck-list" id="deck-list-container" style="display: none;">
       <h2>Your Deck</h2>
       <div id="deck-view">
         <!-- Card stacks will be dynamically added here -->
       </div>
     </div>
-
   </section>
 </main>
 
