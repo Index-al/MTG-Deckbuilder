@@ -833,71 +833,56 @@ main {
 /* DECK BUILDER CSS */
 .deck-view {
   display: flex;
-  flex-wrap: wrap;
-}
-
-/* .card {
-  width: 150px;
-  margin: 10px;
-  transition: transform 0.3s ease;
-  margin: 5px;
-  display: inline-block;
-  vertical-align: top;
-} */
-
-/* .card:hover {
-  transform: translateY(100px);
-} */
-
-
-.deck-view {
-  display: flex;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
+  gap: 20px;
+  overflow-x: auto; /* Allows horizontal scrolling if needed */
 }
 
 .card-stack {
+  display: flex;
+  flex-direction: column;
   position: relative;
-  width: 200px;
-  height: 300px;
-  overflow: hidden;
-  margin: 10px;
+  min-width: 250px; /* Adjust width as necessary */
+}
+
+.card-stack h3 {
+  margin-bottom: 10px;
 }
 
 .cardDeck {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  transition: top 0.3s ease;
-  overflow: hidden; /* Ensure the content stays within the card boundaries */
-}
-
-.card-content {
-  position: relative; /* Ensure child elements are positioned relative to this container */
-  padding: 5px;
+  position: relative;
+  margin-bottom: -340px; /* Adjust overlap value as needed */
+  z-index: 1;
+  transition: transform 0.2s ease, z-index 0.2s ease;
 }
 
 .cardDeck:hover {
-  z-index: 10; /* Ensure hovered card is on top */
-  top: 100%; /* Push down to reveal full card */
+  z-index: 10; /* Bring the card to the front */
+  transform: translateY(-80px); /* Adjust the hover effect as needed */
+}
+
+.card-content {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0px;
+  margin: 25px;
 }
 
 .card-content img {
-  width: 100%; /* Ensure the image fits within the card */
+  display: block;
+  width: 200px; /* Fixed width for card images */
+  height: auto;
 }
 
 .card-content .remove-card {
   position: absolute;
-  top: 10px;
-  right: 10px;
+  top: 0;
+  right: 0;
   background-color: red;
   color: white;
   border: none;
   cursor: pointer;
-  z-index: 20; /* Ensure the button is always on top */
 }
 
-.card-stack h3 {
-  margin: 0 0 10px;
-}
