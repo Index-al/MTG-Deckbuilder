@@ -183,6 +183,93 @@ document.getElementById('save-deck-button').addEventListener('click', async func
   }
 });
 
+document.getElementById('export-deck-button').addEventListener('click', () => {
+  const deckView = document.getElementById('deck-view');
+  let exportText = '';
+  document.querySelectorAll('.cardDeck').forEach(card => {
+    const cardName = card.querySelector('img').alt;
+    exportText += `1 ${cardName}\n`;
+  });
+  const blob = new Blob([exportText], { type: 'text/plain' });
+  const url = window.URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `${document.getElementById('deck-name-display').textContent}.txt`;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  window.URL.revokeObjectURL(url);
+});
+
+document.getElementById('import-deck-button').addEventListener('click', () => {
+  const textarea = document.getElementById('import-deck-textarea');
+  textarea.style.display = textarea.style.display === 'none' ? 'block' : 'none';
+});
+
+document.getElementById('import-deck-textarea').addEventListener('blur', async function() {
+  const textarea = document.getElementById('import-deck-textarea');
+  const lines = textarea.value.trim().split('\n');
+  const cardNames = lines.map(line => line.replace(/^\d+\s*/, '').trim());
+  const invalidCards = [];
+
+  for (const cardName of cardNames) {
+    const response = await fetch(`https://api.scryfall.com/cards/named?fuzzy=${encodeURIComponent(cardName)}`);
+    if (!response.ok) {
+      invalidCards.push(cardName);
+    }
+  }
+
+  if (invalidCards.length > 0) {
+    Swal.fire('Error', `Invalid card names: ${invalidCards.join(', ')}`, 'error');
+  } else {
+    const deckView = document.getElementById('deck-view');
+    deckView.innerHTML = ''; // Clear current deck view
+
+    for (const cardName of cardNames) {
+      const response = await fetch(`https://api.scryfall.com/cards/named?fuzzy=${encodeURIComponent(cardName)}`);
+      if (response.ok) {
+        const cardData = await response.json();
+        const cardTypes = cardData.type_line.toLowerCase().split(' ');
+
+        let primaryType = cardTypes.includes('creature') ? 'creature' :
+                          cardTypes.includes('planeswalker') ? 'planeswalker' :
+                          cardTypes[0];
+
+        let stack = document.querySelector(`.card-stack[data-type="${primaryType}"]`);
+        if (!stack) {
+          stack = document.createElement('div');
+          stack.classList.add('card-stack');
+          stack.dataset.type = primaryType;
+          stack.innerHTML = `<h3>${primaryType.charAt(0).toUpperCase() + primaryType.slice(1)}</h3>`;
+          deckView.appendChild(stack);
+        }
+
+        const cardElement = document.createElement('div');
+        cardElement.classList.add('cardDeck');
+        cardElement.style.top = `${stack.children.length * 30}px`; // Offset each card by 30px
+        cardElement.innerHTML = `
+          <div class="card-content">
+            <img src="${cardData.image_uris.normal}" alt="${cardData.name}">
+            <div>Price: $${cardData.prices.usd}</div>
+            <button class="remove-card">Remove</button>
+          </div>
+        `;
+        stack.appendChild(cardElement);
+
+        cardElement.querySelector('.remove-card').addEventListener('click', () => {
+          cardElement.remove();
+          // Check if the stack is empty and remove it if necessary
+          if (stack.querySelectorAll('.cardDeck').length === 0) {
+            stack.remove();
+          }
+        });
+      }
+    }
+  }
+
+  textarea.style.display = 'none';
+});
+
 async function loadDeck(deckId) {
   // Update the URL to include the deckId
   const url = new URL(window.location);
@@ -247,15 +334,18 @@ function toggleDeckControls(show) {
   const cardSearchContainer = document.getElementById('card-search-container');
   const deckListContainer = document.getElementById('deck-list-container');
   const deckControls = document.getElementById('deck-controls');
+  const importExportControls = document.getElementById('import-export-controls');
   if (show) {
     topControls.style.display = 'block';
     cardSearchContainer.style.display = 'block';
     deckListContainer.style.display = 'block';
+    importExportControls.style.display = 'block';
     deckControls.style.display = 'none'; // Hide loading/creating options
   } else {
     topControls.style.display = 'none';
     cardSearchContainer.style.display = 'none';
     deckListContainer.style.display = 'none';
+    importExportControls.style.display = 'none';
     deckControls.style.display = 'block'; // Show loading/creating options
   }
 }
