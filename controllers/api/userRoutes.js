@@ -111,6 +111,7 @@ router.put("/update", withAuth, async (req, res) => {
   }
 });
 
+// Route to delete a user's account
 router.delete("/delete", withAuth, async (req, res) => {
   try {
     const user_id = req.session.user_id;

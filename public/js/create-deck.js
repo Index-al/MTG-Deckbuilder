@@ -4,7 +4,7 @@ async function createDeck(e) {
   const deckName = document.querySelector("#new-deck").value.trim();
   const response = await fetch("/api/decks/", {
     method: "POST",
-    body: JSON.stringify({ deckName }),
+    body: JSON.stringify({ name: deckName, cardList: [] }),
     headers: {
       "Content-Type": "application/json",
     },

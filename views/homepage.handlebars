@@ -40,14 +40,14 @@
             
             {{!-- Card image --}}
               <div class="card-image" style="width: 75%; height: auto; margin: 0 auto;">
-            {{#if this.card_faces}}
+            {{#if this.faces}}
                 <figure class="image">
-                  <img src="{{this.card_faces.[0].image_uris.normal}}" alt="{{this.name}}" class="card-face front" />
-                  <img src="{{this.card_faces.[1].image_uris.normal}}" alt="{{this.name}}" class="card-face back" style="display: none;" />
+                  <img src="{{this.faces.0.image_uris.normal}}" alt="{{this.name}}" class="card-face front" />
+                  {{!-- <img src="{{this.card_faces.[1].image_uris.normal}}" alt="{{this.name}}" class="card-face back" style="display: none;" />
                   <button
                   class="flip-card"
                   onclick="flipCard()"
-                  >⤴</button>
+                  >⤴</button> --}}
             {{else}}
                 <figure class="image">
                   <img src="{{this.imageUrl}}" alt="{{this.name}}" onerror="this.style.display='none'"/>

@@ -829,3 +829,60 @@ main {
 		margin-right: auto;
 	}
 }
+
+/* DECK BUILDER CSS */
+.deck-view {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 20px;
+  overflow-x: auto; /* Allows horizontal scrolling if needed */
+}
+
+.card-stack {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  min-width: 250px; /* Adjust width as necessary */
+}
+
+.card-stack h3 {
+  margin-bottom: -45px;
+}
+
+.cardDeck {
+  position: relative;
+  margin-bottom: -340px; /* Adjust overlap value as needed */
+  z-index: 1;
+  transition: transform 0.2s ease, z-index 0.2s ease;
+}
+
+.cardDeck:hover {
+  z-index: 10; /* Bring the card to the front */
+  transform: translateY(-80px); /* Adjust the hover effect as needed */
+}
+
+.card-content {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0px;
+  margin: 25px;
+}
+
+.card-content img {
+  display: block;
+  width: 200px; /* Fixed width for card images */
+  height: auto;
+}
+
+.card-content .remove-card {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background-color: red;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
